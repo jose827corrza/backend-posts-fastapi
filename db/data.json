@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "post_id": "aaa-bbb",
+        "title": "Electromechanical engineering",
+        "description": "I studied that degree, I learned a lot",
+        "date": "12/10/2023",
+        "user_id": "1234-444v-bbb-w",
+        "categories": ["Math", "Physics"]    
+    },
+    {
+        "id": 2,
+        "post_id": "ccc-ddd",
+        "title": "Software engineering",
+        "description": "I studied that degree, Everyday I learn something new",
+        "date": "12/10/2023",
+        "user_id": "1234-444v-bbb-w",
+        "categories": ["Math", "Physics", "Computer Cience"]    
+    },
+    {
+        "id": 3,
+        "post_id": "ddd-bbb",
+        "title": "Developer",
+        "description": "I studied that degree, I learned a lot in documentation",
+        "date": "12/10/2023",
+        "user_id": "1234-444v-bbb-w",
+        "categories": ["Computer Cience", "Physics"]    
+    }
+]
