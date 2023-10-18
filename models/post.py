@@ -26,3 +26,53 @@ class Post(BaseModel):
             ]
         }
     }
+
+class PostIn(BaseModel):
+    title: str
+    description: str
+    date: str
+    user_id: str
+    categories: list[str]
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "title": "My first Post",
+                    "description": "Description of the first Post",
+                    "date": "2023-10-15",
+                    "user_id": "aaa-bbb-ccc-ddd",
+                    "categories": [
+                        "Math",
+                        "Physics"
+                    ]
+                }
+            ]
+        }
+    }
+
+class PostOut(BaseModel):
+    id: Optional[int] = None
+    post_id: Optional[str] = None
+    title: str
+    description: str
+    date: str
+    user_id: str
+    categories: list[str]
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "title": "My first Post",
+                    "description": "Description of the first Post",
+                    "date": "2023-10-15",
+                    "user_id": "aaa-bbb-ccc-ddd",
+                    "categories": [
+                        "Math",
+                        "Physics"
+                    ]
+                }
+            ]
+        }
+    }
