@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from typing import List
 import uuid
@@ -7,7 +8,13 @@ import uuid
 import db
 from dtos.post import PostDto
 from models.post import Post
+from models.user import User
+from models.jwt import JWTBearer
+from auth.jwt_manager import create_token
 
+
+# Load the .env
+load_dotenv()
 test = db.data
 
 app = FastAPI(
@@ -49,7 +56,7 @@ def get_posts_by_category(category: str):
                 posts.append(post)
     return posts
 
-@app.post('/posts', response_model=Post, tags=['Posts'])
+@app.post('/posts', response_model=Post, tags=['Posts'], dependencies=[Depends(JWTBearer)])
 def create_post(post: Post):
     # test.append({
     #     "id": 4,
@@ -86,3 +93,10 @@ def delete_post(post_id: str) -> dict:
         if item['post_id'] == post_id:
             test.remove(item)
             return JSONResponse(content={"message": "post deleted"})
+        
+@app.post('/login', tags=['Auth'])
+def login(data: User):
+    # Emulates the existence of user in DB
+    if data.email == "test@mail.com" and data.password =="test123":
+        token: str = create_token(data.model_dump())
+        return token
