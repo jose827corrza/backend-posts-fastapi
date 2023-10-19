@@ -1,5 +1,5 @@
 from typing import Any, Coroutine, Optional
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, OA
+from fastapi.security import HTTPBearer
 from starlette.requests import Request
 from fastapi import HTTPException, status
 

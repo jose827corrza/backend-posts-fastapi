@@ -4,20 +4,30 @@ from fastapi import FastAPI, HTTPException, Depends
 from typing import List
 import uuid
 
+# Load the .env
+load_dotenv()
+
 # Project
 import db
+from config.config import load_variables
 from dtos.post import PostDto
 from models.post import Post
 from models.user import User
 from models.jwt import JWTBearer
 from auth.jwt_manager import create_token
+from database.database import SessionLocal, Base, engine
+
 
 from routes import posts, auth
 
 
-# Load the .env
-load_dotenv()
+
 test = db.data
+
+# Import models before call create_call()
+from models_database import post
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title= 'Tweets FastAPI',
@@ -29,6 +39,10 @@ app = FastAPI(
         "email": 'jose.corrzadeveloper@gmail.com'
     }
 )
+
+#Load the DB
+
+
 
 app.include_router(posts.router)
 app.include_router(auth.router)
