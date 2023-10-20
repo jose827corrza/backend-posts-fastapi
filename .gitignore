@@ -10,7 +10,9 @@
 # Icon must end with two \r
 Icon
 .env
-
+db.env
+*.sqlite
+postgres_data/
 # Thumbnails
 ._*
 
