@@ -1,78 +1,19 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from database.database import Base
+from sqlalchemy import Column, Integer, String
 
-class Post(BaseModel):
-    id: Optional[int] = None
-    post_id: Optional[str] = None
-    title: str = Field(max_length=60)
-    description: str = Field(max_length=100, min_length=5)
-    date: str
-    user_id: str
-    categories: list[str]
+class Post(Base):
+    __tablename__ = "posts"
 
-    model_config = {
-        "json_schema_extra": {
-            "examples": [
-                {
-                    "title": "My first Post",
-                    "description": "Description of the first Post",
-                    "date": "2023-10-15",
-                    "user_id": "aaa-bbb-ccc-ddd",
-                    "categories": [
-                        "Math",
-                        "Physics"
-                    ]
-                }
-            ]
-        }
-    }
+    id = Column(Integer, primary_key=True)
+    post_id = Column(String)
+    title = Column(String)
+    description = Column(String)
+    date = Column(String)
+    user_id = Column(String)
+    category = Column(String)
 
-class PostIn(BaseModel):
-    title: str
-    description: str
-    date: str
-    user_id: str
-    categories: list[str]
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [
-                {
-                    "title": "My first Post",
-                    "description": "Description of the first Post",
-                    "date": "2023-10-15",
-                    "user_id": "aaa-bbb-ccc-ddd",
-                    "categories": [
-                        "Math",
-                        "Physics"
-                    ]
-                }
-            ]
-        }
-    }
-
-class PostOut(BaseModel):
-    id: Optional[int] = None
-    post_id: Optional[str] = None
-    title: str
-    description: str
-    date: str
-    user_id: str
-    categories: list[str]
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [
-                {
-                    "title": "My first Post",
-                    "description": "Description of the first Post",
-                    "date": "2023-10-15",
-                    "user_id": "aaa-bbb-ccc-ddd",
-                    "categories": [
-                        "Math",
-                        "Physics"
-                    ]
-                }
-            ]
-        }
-    }
+    # Func to avoid the  field to field update into the controller function in routes
+    def update( self, **kwargs ):
+        for key, value in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, value)

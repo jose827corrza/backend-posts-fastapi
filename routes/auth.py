@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from auth.jwt_manager import create_token
 
-from models.user import User
+from schemas.user import User
 
 router = APIRouter(
     tags=['Auth']
