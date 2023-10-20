@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from fastapi import HTTPException
 import uuid
+import datetime
 
 from models.post import Post as PostModel
 from schemas.post import Post
@@ -24,14 +25,17 @@ class PostService():
 
     def create_post(self, post: Post):
         try:
+            date= datetime.datetime.now()
+
             new_post = PostModel(
             title = post.title.capitalize(),
             description = post.description,
             post_id = str(uuid.uuid4()),
             user_id = post.user_id,
-            date = post.date,
+            date = date.strftime("%c"),
             category = post.category.capitalize()
             )
+            
             self.db.add(new_post)
             self.db.commit()
             return

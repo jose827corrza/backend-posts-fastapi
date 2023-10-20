@@ -3,14 +3,14 @@ from fastapi.responses import JSONResponse
 
 from auth.jwt_manager import create_token
 
-from schemas.user import User
+from schemas.user import UserCreate
 
 router = APIRouter(
     tags=['Auth']
 )
 
 @router.post('/login', response_model=dict())
-def login(data: User) -> dict():
+def login(data: UserCreate) -> dict():
     # Emulates the existence of user in DB
     if data.email == "test@mail.com" and data.password =="test123":
         token: str = create_token(data.model_dump())

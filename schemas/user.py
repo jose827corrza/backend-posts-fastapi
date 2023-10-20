@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
-class User(BaseModel):
+class UserBase(BaseModel):
     email: str
-    password: str
+    # password: str
 
     model_config = {
         "json_schema_extra": {
@@ -14,3 +14,6 @@ class User(BaseModel):
             ]
         }
     }
+
+class UserCreate(UserBase):
+    password: str

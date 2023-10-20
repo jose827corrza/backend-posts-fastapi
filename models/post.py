@@ -11,6 +11,7 @@ class Post(Base):
     date = Column(String)
     user_id = Column(String)
     category = Column(String)
+    date = Column(String)
 
     # Func to avoid the  field to field update into the controller function in routes
     def update( self, **kwargs ):
