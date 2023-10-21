@@ -8,6 +8,6 @@ class User(Base):
     id = Column(Integer, primary_key= True)
     email = Column(String)
     password = Column(String)
-    registered_user_id = Column(String)
+    registered_user_id = Column(String, unique=True)
 
     posts = relationship("Post",back_populates="user")
