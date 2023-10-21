@@ -11,13 +11,14 @@ base_path = os.path.dirname(os.path.realpath(__file__))
 db_user = os.getenv('DB_USER')
 db_password = os.getenv('DB_PASSWORD')
 db_name = os.getenv('DB_NAME')
+db_host = os.getenv('DB_HOST')
 # db_user = 'root'
 # db_password = '123456'
 # db_name = 'posts_fastapi'
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.sqlite"
 # SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.path.join(base_path, sql_file_name)}"
-SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@localhost:5432/{db_name}"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:5432/{db_name}"
 # SQLALCHEMY_DATABASE_URL = f"postgresql://root:123456@localhost:5432/posts_fastapi"
 
 engine = create_engine(
