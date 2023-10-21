@@ -5,7 +5,6 @@ import os
 
 def create_token(data: dict) -> str:
     jwt_key: str = os.getenv('JWT_SECRET_KEY')
-    print(jwt_key)
     token: str = encode(payload=data, key=jwt_key, algorithm="HS256")
     return token
 
