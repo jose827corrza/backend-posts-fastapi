@@ -24,7 +24,7 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:5432/
 engine = create_engine(
     url=SQLALCHEMY_DATABASE_URL,
     echo=True, #To show in console the progress,
-    connect_args={"check_same_thread": False}
+    # connect_args={"check_same_thread": False}
 )
 
 SessionLocal = sessionmaker(
