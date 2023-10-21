@@ -4,16 +4,16 @@ import uuid
 import datetime
 
 from models.post import Post as PostModel
-from schemas.post import Post
+from schemas.post import PostTable, PostCreate
 
 class PostService():
     def __init__(self, db: sessionmaker) -> None:
         self.db = db
 
-    def get_posts(self) -> list[Post]:
+    def get_posts(self) -> list[PostTable]:
         return self.db.query(PostModel).all()
     
-    def get_post_by_post_id(self, post_id: str) -> Post | None:
+    def get_post_by_post_id(self, post_id: str) -> PostTable | None:
         result = self.db.query(PostModel).filter(PostModel.post_id == post_id).first()
         if result == None:
             raise HTTPException(404, "Post not found")
@@ -23,7 +23,7 @@ class PostService():
     def get_posts_by_category(self, category: str):  
         return self.db.query(PostModel).filter(PostModel.category == category.capitalize()).all()
 
-    def create_post(self, post: Post):
+    def create_post(self, post: PostCreate):
         try:
             date= datetime.datetime.now()
 
@@ -42,7 +42,7 @@ class PostService():
         except Exception as e:
             raise HTTPException(500, "Internal server error")
         
-    def update_post(self, post_id: str, post: Post):
+    def update_post(self, post_id: str, post: PostCreate):
         try:
             result = self.get_post_by_post_id(post_id)
             if not result:

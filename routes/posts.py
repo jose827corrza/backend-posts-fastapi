@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from middlewares.jwt_bearer import JWTBearer
 from schemas.post import PostTable, PostCreate
 from database.database import SessionLocal
+from schemas.utils import SuccessResponse
 from services.post import PostService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -47,18 +48,18 @@ def get_posts_by_category(category: str):
 
 @router.post(
         path='/posts', 
-        # response_model=Post, 
+        response_model=SuccessResponse, 
         dependencies=[Depends(JWTBearer())]
              )
 def create_post(post: PostCreate):
     db = SessionLocal()
     # new_post = PostModel(**post.dict()) # Easy mode, passing directly
     PostService(db).create_post(post)
-
     return JSONResponse(content={"message": "Post Created"})
 
 @router.put(
         path='/posts/{post_id}',
+        response_model=SuccessResponse,
         deprecated=True
         )
 def update_post(post_id: str, post: PostCreate):
@@ -67,7 +68,10 @@ def update_post(post_id: str, post: PostCreate):
     return JSONResponse(content={"message": "Post updated"})
     
 
-@router.delete('/posts/{post_id}', response_model=dict)
+@router.delete(
+        path='/posts/{post_id}', 
+        response_model=SuccessResponse
+        )
 def delete_post(post_id: str) -> dict:
     db = SessionLocal()
     PostService(db).delete_post(post_id)

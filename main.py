@@ -11,12 +11,12 @@ from middlewares.error_handler import ErrorHandler
 from database.database import Base, engine
 
 
-from routes import posts, auth
+from routes import posts, auth, users
 
 
 
 # Import models before call create_call()
-from models import post
+from models import post, user
 
 Base.metadata.create_all(bind=engine)
 
@@ -38,6 +38,7 @@ app.add_middleware(ErrorHandler)
 
 app.include_router(posts.router)
 app.include_router(auth.router)
+app.include_router(users.router)
 
 @app.get('/',tags=['Home'])
 def hello():
